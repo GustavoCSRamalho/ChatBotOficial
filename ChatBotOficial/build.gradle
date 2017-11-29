@@ -1,0 +1,66 @@
+buildscript {
+    ext {
+        dl4j_version = "0.9.1"
+        
+    }
+    repositories {
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        mavenCentral()
+    }
+    
+}
+
+apply plugin: "application"
+
+
+
+repositories {
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    mavenCentral()
+    }
+
+dependencies {
+    //compile "org.deeplearning4j:deeplearning4j-core:${dl4j_version}"
+    //compile "org.nd4j:nd4j-native-platform:${dl4j_version}"
+    
+      // https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-ui-model
+	compile group: 'org.deeplearning4j', name: 'deeplearning4j-ui-model', version: '0.9.1'
+	
+	// https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-nlp
+	compile group: 'org.deeplearning4j', name: 'deeplearning4j-nlp', version: '0.8.0'
+	
+	// https://mvnrepository.com/artifact/org.nd4j/nd4j-native-platform
+	testCompile group: 'org.nd4j', name: 'nd4j-native-platform', version: '0.9.1'
+    compile "org.slf4j:slf4j-simple:1.7.25"
+    compile "org.slf4j:slf4j-api:1.7.25"
+    
+    // This dependency is exported to consumers, that is to say found on their compile classpath.
+    
+}
+
+
+sourceSets {
+    main {
+        /*
+        Kotlin examples do not use java sources, so let's exclude them all
+         */
+        java {
+            srcDir "src/main/java"
+            
+        }
+    }
+}
+
+task MLPMnistSingleLayerExample(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "org.deeplearning4j.examples.feedforward.mnist.MLPMnistSingleLayerExample"
+}
+
+task MLPMnistTwoLayerExample(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "org.deeplearning4j.examples.feedforward.mnist.MLPMnistTwoLayerExample"
+}
+
+/*
+More Java examples to be converted to Kotlin
+ */
